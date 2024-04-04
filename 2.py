@@ -1,0 +1,1 @@
+test_number = int(input("Введите число: "))
