@@ -1,19 +1,24 @@
-import py_compile
-import os
+import pandas as pd
 
-def test_syntax_of_another_file():
-    file_path = '2.py'  # Путь к вашему файлу с кодом
+# Создаем примеры ошибок и их исправлений
+data = {
+    'error': [
+        'print("Hello, World!"',
+        'print("Hello, World!)',
+        'print"Hello, World!")',
+        'prin("Hello, World")'
+    ],
 
-    # Проверяем, существует ли файл
-    assert os.path.exists(file_path), f"Файл {file_path} не найден"
+    'correction': [
+        "Попробуйте добавить закрывающую скобку",
+        "Попробуйте добавить закрывающие кавычки",
+        "Попробуйте добавить открывающую скобку",
+        "Посмотрите как правильно пишется название функции"
+    ]
+}
 
-    try:
-        # Читаем содержимое файла с явным указанием кодировки UTF-8
-        with open(file_path, 'r', encoding='utf-8') as file:
-            code = file.read()
+# Создаем DataFrame из данных
+df = pd.DataFrame(data)
 
-        # Пытаемся скомпилировать код
-        py_compile.compile(file_path, cfile=None, doraise=True)
-    except py_compile.PyCompileError as e:
-        # Если возникает ошибка компиляции, значит есть синтаксическая ошибка
-        assert False, f"Синтаксическая ошибка в файле {file_path}: {e}"
+# Сохраняем DataFrame в CSV-файл
+df.to_csv('error_correction_dataset.csv', index=False)

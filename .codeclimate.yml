@@ -1,0 +1,12 @@
+version: "2"
+plugins:
+  codeclimate-pylint:
+    enabled: true
+    config:
+      enabled: true
+      check_untyped_defs: true
+      disable: [
+        "missing-module-docstring",
+        "missing-function-docstring",
+        "invalid-name"
+      ]
